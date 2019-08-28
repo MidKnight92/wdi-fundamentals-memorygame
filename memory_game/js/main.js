@@ -38,7 +38,9 @@ function checkForMatch() {
 	} 
 }
 
-function flipCard(cardId) {
+function flipCard() {
+	var cardId = this.getAttribute('data-id');
+	this.setAttribute('src', cards[cardId].cardImage);
 	cardsInPlay.push(cards[cardId].rank);
 	console.log("User flipped " + cards[cardId].rank);
 	console.log(cards[cardId].cardImage);
@@ -52,6 +54,15 @@ function flipCard(cardId) {
 		}
 	} 
 }
+// loops through the cards array gives them an img tag and img of the back of the card then sets data id  and click event listner that runs flipcard once card is clicked
+var createBoard = function () {
+	for (var i = 0; i < cards.length; i++) {
+		var cardElement = document.createElement('img');
+		cardElement.setAttribute('src','images/back.png');
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener('click', flipCard);
+		document.getElementById('game-board').appendChild(cardElement);
+	}
+}
 
-flipCard(0);
-flipCard(2);
+createBoard();
